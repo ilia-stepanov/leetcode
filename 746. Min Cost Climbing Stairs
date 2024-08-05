@@ -1,4 +1,6 @@
-# down top Tabulation
+# hashtags: dynamic programming, dp
+
+# bottom up Tabulation
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
         n = len(cost)
