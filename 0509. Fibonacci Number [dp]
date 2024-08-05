@@ -1,5 +1,18 @@
 # Hashtags: dynamic programming, dp
 
+# top down Memoization
+class Solution:
+    def fib(self, n: int) -> int:
+        hashtable = {i:-1 for i in range(n+1)}
+        hashtable[0] = 0
+        hashtable[1] = 1
+        def f(hashtable, n):
+            if hashtable[n] != -1:
+                return hashtable[n]
+            hashtable[n] = f(hashtable, n-1) + f(hashtable, n-2)
+            return hashtable[n]
+        return f(hashtable, n)
+
 
 # bottom up Tabulation
 class Solution:
