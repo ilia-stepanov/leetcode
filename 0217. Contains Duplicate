@@ -17,6 +17,7 @@ class Solution:
             index += 1
         return False
 
+
     def containsDuplicateUsingHashMap(self, nums: List[int]) -> bool:
         frequencies = dict()
         for num in nums:
@@ -49,6 +50,7 @@ class Solution:
             bitmask |= (1 << num)
         return False
 
+
     def containsDuplicate(self, nums: List[int]) -> bool:
-        return self.containsDuplicateUsingBruteForce(nums)
+        return self.containsDuplicateUsingSet(nums)
 
