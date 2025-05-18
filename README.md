@@ -9,3 +9,9 @@
 | 0242    | Valid Anagram  | 2. Hash Map (Dict) Character Count     | Dictionary (Hash Map)       | Frequency counting                     | No    | Easy    |
 | 0242    | Valid Anagram  | 3. Fixed-size Array for 26 Letters     | Array (size 26)             | Frequency counting                     | No    | Easy    |
 | 0242    | Valid Anagram  | 4. Prime Hashing (Theoretical)         | Array of Primes, Integer    | Prime multiplication                   | No    | Easy    |
+| 0001   | Two Sum           | 1. Hash Map (One-pass)                | Dictionary (Hash Map)        | Single pass with complement lookup     | Yes                 | Easy   |
+| 0001   | Two Sum           | 2. Hash Map (Two-pass)                | Dictionary (Hash Map)        | Two-pass frequency/index map           | Yes                 | Easy   |
+| 0001   | Two Sum           | 3. Brute Force                        | None (Primitive Loops)       | Nested iteration (O(n²) comparison)    | Yes                 | Easy   |
+| 0001   | Two Sum           | 4. Sorting + Two Pointers (no indices)| Array + Tuple (with index)   | Sorting + two-pointer sweep            | No                  | Easy   |
+| 0001   | Two Sum           | 5. Binary Search on Sorted Array      | Array                        | Iteration + binary search              | No                  | Easy   |
+
