@@ -1,0 +1,64 @@
+class Solution:
+    def twoSumUsingBruteForce(self, nums: List[int], target: int) -> List[int]:
+        i = 0
+        while i < len(nums):
+            j = i + 1
+            while j < len(nums):
+                if nums[i] + nums[j] == target:
+                    return [i, j]
+                j += 1
+            i += 1
+
+    def twoSumUsingHashMap1(self, nums: List[int], target: int) -> List[int]:
+        freq = dict()
+        for index, num in enumerate(nums):
+            diff = target - num
+            if diff in freq:
+                return [freq[diff], index]
+            freq[num] = index
+
+
+
+    def twoSumUsingHashMap2(self, nums: List[int], target: int) -> List[int]:
+        freq = dict()
+        for index, num in enumerate(nums):
+            if num in freq:
+                freq[num].append(index)
+            else:
+                freq[num] = [index]
+        for num in freq.keys():
+            diff = target - num
+            if diff == num and len(freq[num]) > 1:
+                return freq[num]
+            if diff != num and diff in freq:
+                return [freq[num][0], freq[diff][0]]
+
+
+    def twoSumUsingSortingAndTwoPointers(self, nums: List[int], target: int) -> List[int]:
+        mapping = dict()
+        for index, num in enumerate(nums):
+            if num in mapping:
+                mapping[num].append(index)
+            else:
+                mapping[num] = [index]
+        nums.sort()
+        left = 0
+        right = len(nums) - 1
+        while left < right:
+            total = nums[left] + nums[right]
+            if total == target:
+                if nums[left] == nums[right]:
+                    return mapping[nums[left]]
+                return [mapping[nums[left]][0], mapping[nums[right]][0]]
+            if total > target:
+                right -= 1
+            if total < target:
+                left += 1
+
+    def twoSumUsingSortingAndBinarySearch(self, nums: List[int], target: int) -> List[int]:
+        pass
+
+
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        return self.twoSumUsingSortingAndTwoPointers(nums, target)
+        
