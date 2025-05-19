@@ -55,8 +55,36 @@ class Solution:
             if total < target:
                 left += 1
 
+
+    def binarySearch(self, arr, target, left):
+        right = len(arr) - 1
+        while left <= right:
+            mid = (left + right) // 2
+            if arr[mid] == target:
+                return arr[mid]
+            if arr[mid] > target:
+                right = mid - 1
+            elif arr[mid] < target:
+                left = mid + 1
+        return None
+
+
     def twoSumUsingSortingAndBinarySearch(self, nums: List[int], target: int) -> List[int]:
-        pass
+        mapping = dict()
+        for index, num in enumerate(nums):
+            if num in mapping:
+                mapping[num].append(index)
+            else:
+                mapping[num] = [index]
+        nums.sort()
+        for left, num in enumerate(nums):
+            diff = target - num
+            val2 = self.binarySearch(nums, diff, left)
+            if val2 is None:
+                continue
+            if diff == num:
+                return mapping[diff]
+            return [mapping[num][0], mapping[diff][0]]
 
 
     def twoSum(self, nums: List[int], target: int) -> List[int]:
