@@ -9,6 +9,7 @@ class Solution:
                 j += 1
             i += 1
 
+
     def twoSumUsingHashMap1(self, nums: List[int], target: int) -> List[int]:
         freq = dict()
         for index, num in enumerate(nums):
@@ -16,7 +17,6 @@ class Solution:
             if diff in freq:
                 return [freq[diff], index]
             freq[num] = index
-
 
 
     def twoSumUsingHashMap2(self, nums: List[int], target: int) -> List[int]:
