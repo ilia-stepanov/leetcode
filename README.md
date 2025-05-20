@@ -14,4 +14,8 @@
 | 0001   | Two Sum           | 3. Brute Force                        | None (Primitive Loops)       | Nested iteration (O(n²) comparison)    | Yes                 | Easy   |
 | 0001   | Two Sum           | 4. Sorting + Two Pointers (no indices)| Array + Tuple (with index)   | Sorting + two-pointer sweep            | No                  | Easy   |
 | 0001   | Two Sum           | 5. Binary Search on Sorted Array      | Array                        | Iteration + binary search              | No                  | Easy   |
+| 0049   | Group Anagrams      | 1. Sort each word                       | Dictionary (Hash Map)              | Sorting and group by sorted string           | Yes                 | Medium |
+| 0049   | Group Anagrams      | 2. Char count tuple (bucket signature) | Dictionary + Fixed Array (26)      | Char counting per word                       | Yes                 | Medium |
+| 0049   | Group Anagrams      | 3. Prime number product (hash)         | Dictionary + Primes                | Prime multiplication hashing                 | Yes                 | Medium |
+| 0049   | Group Anagrams      | 4. Trie-based grouping                  | Trie (Prefix Tree)                 | Insert sorted/char-count key into trie       | No                  | Medium |
 
