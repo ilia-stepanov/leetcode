@@ -1,0 +1,27 @@
+class Solution:
+    def groupAnagramsUsingSorting(self, strs: List[str]) -> List[List[str]]:
+        sorted_strs = [''.join(sorted(val)) for val in strs]
+        result = dict()
+        for index, sorted_str in enumerate(sorted_strs):
+            if sorted_str not in result:
+                result[sorted_str] = []
+            result[sorted_str].append(strs[index])
+        return list(result.values())
+
+
+    def groupAnagramsUsingCharCount(self, strs: List[str]) -> List[List[str]]:
+        char_counts = dict()
+        for val in strs:
+            count_list = [0] * 26
+            for char in val:
+                position = ord(char) - 97
+                count_list[position] += 1
+            count_tuple = tuple(count_list)
+            if count_tuple not in char_counts:
+                char_counts[count_tuple] = []
+            char_counts[count_tuple].append(val)
+        return list(char_counts.values())
+
+
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        return self.groupAnagramsUsingCharCount(strs)
