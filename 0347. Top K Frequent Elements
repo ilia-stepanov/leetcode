@@ -1,0 +1,143 @@
+from typing import List
+
+class MinHeap:
+    def __init__(self):
+        self.heap = []
+    
+    def push(self, value):
+        self.heap.append(value)
+        self._sift_up()
+
+    def _swap(self, new_position, old_position):
+        self.heap[old_position], self.heap[new_position] = self.heap[new_position], self.heap[old_position]
+
+
+
+    def pop(self):
+        if not self.heap:
+            return None
+        self._swap(0, self.size() - 1)
+        item = self.heap.pop()
+        self._sift_down()
+        return item
+
+    def _sift_up(self):
+        added_value_index = len(self.heap) - 1
+        added_value = self.heap[added_value_index][0]
+        
+        while True:
+            parent_index = (added_value_index - 1) // 2
+            parent_value = self.heap[parent_index][0]
+            if added_value >= parent_value or added_value_index == 0:
+                break
+            self._swap(parent_index, added_value_index)
+            added_value_index = parent_index
+
+
+    def _sift_down(self):
+        parent = 0
+        size = self.size()
+        while True:
+            left_child = 2 * parent + 1
+            right_child = 2 * parent + 2
+            smallest = parent
+
+            if left_child < size and self.heap[left_child][0] < self.heap[smallest][0]:
+                smallest = left_child
+            if right_child < size and self.heap[right_child][0] < self.heap[smallest][0]:
+                smallest = right_child
+
+            if smallest == parent:
+                break
+
+            self._swap(parent, smallest)
+            parent = smallest
+    
+
+    def size(self):
+        return len(self.heap)
+
+    def to_list(self):
+        return [item[1] for item in self.heap]
+
+
+class Solution:
+    def topKFrequentUsingMinHeap(self, nums: List[int], k: int) -> List[int]:
+        freq_map = {}
+        for num in nums:
+            freq_map[num] = freq_map.get(num, 0) + 1
+
+        heap = MinHeap()
+        for num, freq in freq_map.items():
+            heap.push((freq, num))
+            if heap.size() > k:
+                heap.pop()
+
+        return heap.to_list()
+    
+
+    def topKFrequentUsingBucketSort(self, nums: List[int], k: int) -> List[int]:
+        freq_map = {}
+        for num in nums:
+            freq_map[num] = freq_map.get(num, 0) + 1
+
+        buckets = [[] for _ in range(len(nums) + 1)]
+        for (val, freq) in freq_map.items():
+            buckets[freq].append(val)
+        i = len(nums)
+        result = []
+        while k > 0:
+            if buckets[i]:
+                k -= len(buckets[i])
+                result.extend(buckets[i])
+            i -= 1
+        return result
+
+
+    def quickSelectSort(self, ls, left, right, k):
+        if left >= right:
+            return
+
+        pivot_value = ls[right][1]
+        pivot_index = right
+        store_index = left
+
+        for i in range(left, right):
+            if pivot_value > ls[i][1]:
+                ls[store_index], ls[i] = ls[i], ls[store_index]
+                store_index += 1
+        ls[store_index], ls[pivot_index] = ls[pivot_index], ls[store_index]
+        
+
+        if k == store_index:
+            return
+        elif k > store_index:
+            self.quickSelectSort(ls, store_index + 1, right, k)
+        elif k < store_index:
+            self.quickSelectSort(ls, left, store_index - 1, k)
+
+
+    def topKFrequentUsingQuickSelectSort(self, nums: List[int], k: int) -> List[int]:
+        freq_map = {}
+        for num in nums:
+            freq_map[num] = freq_map.get(num, 0) + 1
+        ls = list(freq_map.items())
+        self.quickSelectSort(ls, 0, len(ls) - 1, len(ls) - k)
+        return [item[0] for item in ls[-k:]]
+        
+
+    def topKFrequentSortByFrequency(self, nums: List[int], k: int) -> List[int]:
+        freq_map = {}
+        for num in nums:
+            freq_map[num] = freq_map.get(num, 0) + 1
+        ls = list(freq_map.items())
+        ls.sort(key=lambda x: x[1])
+        result = []
+        for i in range(1, k+1):
+            result.append(ls[-i][0])
+        return result
+        
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        return self.topKFrequentUsingQuickSelectSort(nums, k)
+
+
