@@ -18,4 +18,12 @@
 | 0049   | Group Anagrams      | 2. Char count tuple (bucket signature) | Dictionary + Fixed Array (26)      | Char counting per word                       | Yes                 | Medium |
 | 0049   | Group Anagrams      | 3. Prime number product (hash)         | Dictionary + Primes                | Prime multiplication hashing                 | Yes                 | Medium |
 | 0049   | Group Anagrams      | 4. Trie-based grouping                  | Trie (Prefix Tree)                 | Insert sorted/char-count key into trie       | No                  | Medium |
+| 0347   | Top K Frequent Elements| 1. Min-Heap                            | Hash Map, Custom Min-Heap        | Frequency count + Heap maintenance (O(n log k)) | Yes                 | Medium |
+| 0347   | Top K Frequent Elements| 2. Bucket Sort                         | Hash Map, Array of Lists         | Frequency count + Bucket traversal (O(n))     | Yes                 | Medium |
+| 0347   | Top K Frequent Elements| 3. Quickselect                         | Hash Map, Array                  | Frequency count + Partitioning (O(n) avg)     | Yes                 | Medium |
+| 0347   | Top K Frequent Elements| 4. Sort by Frequency                   | Hash Map, Array                  | Frequency count + Full sort (O(n log n))      | Yes                 | Medium |
+| 0347   | Top K Frequent Elements| 5. Unbalanced TreeMap (BST)           | Hash Map, Manual BST             | Frequency count + Reverse inorder traversal   | No                  | Medium |
+| 0347   | Top K Frequent Elements| 6. AVL Tree                            | Hash Map, AVL Tree               | Frequency count + Balanced Tree traversal     | No                  | Medium |
+| 0347   | Top K Frequent Elements| 7. Red-Black Tree                      | Hash Map, Red-Black Tree         | Frequency count + Balanced Tree traversal     | No                  | Medium |
+
 
