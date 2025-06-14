@@ -1,0 +1,39 @@
+class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
+        def check_rows_and_columns():
+            columns = [[0] * 10 for _ in range(10)]
+            for row in board:
+                rows = [0] * 10
+                for col_index, val in enumerate(row):
+                    if val == '.':
+                        continue
+                    val = int(val)
+                    rows[val] += 1
+                    columns[col_index][val] += 1
+                    if columns[col_index][val] > 1 or rows[val] > 1:
+                        return False
+            return True
+
+
+
+        def check_subbox(x, y):
+            values = [0] * 10
+            for row in range(3):
+                for col in range(3):
+                    value = board[y+row][x+col]
+                    if value == '.':
+                        continue
+                    value = int(value)
+                    values[value] += 1
+            if max(values) > 1:
+                return False
+            return True
+        
+        for y in range(0, 9, 3):
+            for x in range(0, 9, 3):
+                if not check_subbox(x, y):
+                    return False
+        return check_rows_and_columns()
+
+
+            
