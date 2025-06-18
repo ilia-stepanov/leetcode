@@ -43,20 +43,14 @@ class SolutionUsingBucketSorting:
 
 
 class SolutionUsingHashMapGraph:
-    # wrong
+    # Time Limit Exceeded
     def longestConsecutive(self, nums: List[int]) -> int:
         if not nums:
             return 0
         
         hashmap = dict()
-        # nums = set(nums)
         for num in nums:
             hashmap[num] = num + 1
-            # if num + 1 in hashmap:
-            #     hashmap[num] = num + 1
-            # if num - 1 in hashmap:
-            #     hashmap[num-1] = num
-
         max_counter = 1
         for key, value in hashmap.items():
             cur_counter = 1
@@ -68,6 +62,66 @@ class SolutionUsingHashMapGraph:
         return max_counter      
 
 
+class SolutionUsingSet1:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+
+        nums = set(nums)
+        seen = set()
+        max_counter = 1
+        
+        for num in nums:
+            cur_counter = 1
+            if num in seen:
+                continue
+            num_up = num + 1
+            num_down = num - 1
+            while num_up in nums and num_up not in seen:
+                seen.add(num_up)
+                num_up += 1
+            cur_counter += num_up - num - 1
+            while num_down in nums and num_down not in seen:
+                seen.add(num_down)
+                num_down -= 1
+            cur_counter += num - num_down - 1
+            max_counter = max(max_counter, cur_counter)
+        return max_counter      
+
+
+class SolutionUsingSet2:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        nums = set(nums)
+        max_counter = 1
+        for num in nums:
+            cur_counter = 1
+            if num - 1 in nums:
+                continue
+            num_up = num + 1
+            while num_up in nums:
+                num_up += 1
+            cur_counter += num_up - num - 1
+            max_counter = max(max_counter, cur_counter)
+        return max_counter    
+
+
+class SolutionUsingHashMap:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        if not nums:
+            return 0
+        hashmap = defaultdict(int)
+        max_counter = 1
+        for num in nums:
+            if hashmap[num]:
+                continue
+            hashmap[num] = hashmap[num - 1] + hashmap[num + 1] + 1
+            hashmap[num - hashmap[num - 1]] = hashmap[num]
+            hashmap[num + hashmap[num + 1]] = hashmap[num]
+            max_counter = max(max_counter, hashmap[num])
+        return max_counter
+
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        return SolutionUsingHashMapGraph().longestConsecutive(nums)
+        return SolutionUsingHashMap().longestConsecutive(nums)
