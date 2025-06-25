@@ -1,0 +1,39 @@
+class SolutionUsingBruteForce:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        result = []
+        curr_index = 0
+        while curr_index < len(temperatures):
+            curr_val = temperatures[curr_index]
+            next_index = curr_index + 1
+            diff_days = 0
+            while next_index < len(temperatures):
+                next_val = temperatures[next_index]
+                if next_val > curr_val:
+                    diff_days = next_index - curr_index
+                    break
+                next_index += 1
+            result.append(diff_days)
+            curr_index += 1
+        return result
+
+
+class SolutionUsingStack:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        result = [0] * len(temperatures)
+        stack = []
+
+        for next_day, next_temperature in enumerate(temperatures):
+            while stack and next_temperature > stack[-1][1]:
+                prev_day, prev_temperature = stack.pop()
+                result[prev_day] = next_day - prev_day
+            stack.append((next_day, next_temperature))
+        return result
+
+
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        return SolutionUsingStack().dailyTemperatures(temperatures)
+
+
+
