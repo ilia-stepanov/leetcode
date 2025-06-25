@@ -20,13 +20,13 @@ class SolutionUsingBruteForce:
 class SolutionUsingStack:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         result = [0] * len(temperatures)
-        stack = []
+        stack = [] # stack of indexes
 
         for next_day, next_temperature in enumerate(temperatures):
-            while stack and next_temperature > stack[-1][1]:
-                prev_day, prev_temperature = stack.pop()
+            while stack and next_temperature > temperatures[stack[-1]]:
+                prev_day = stack.pop()
                 result[prev_day] = next_day - prev_day
-            stack.append((next_day, next_temperature))
+            stack.append(next_day)
         return result
 
 
