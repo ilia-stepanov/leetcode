@@ -1,3 +1,7 @@
+source is https://leetcode.com/problems/daily-temperatures/
+addition is https://leetcode.com/problems/next-greater-element-i/description/
+
+
 class SolutionUsingBruteForce:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
         result = []
