@@ -30,10 +30,29 @@ class SolutionUsingStack:
         return result
 
 
+class SolutionUsingDynamicProgramming:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        n = len(temperatures)
+        result = [0] * n
+
+        for curr_day in range(n-2, -1, -1):
+            next_day = curr_day + 1
+            while next_day < n and temperatures[next_day] <= temperatures[curr_day]:
+                if result[next_day] == 0:
+                    next_day = n
+                    break
+                next_day += result[next_day]
+
+            if next_day < n:
+                result[curr_day] = next_day - curr_day
+        
+        return result
+
+
 
 class Solution:
     def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
-        return SolutionUsingStack().dailyTemperatures(temperatures)
+        return SolutionUsingDynamicProgramming().dailyTemperatures(temperatures)
 
 
 
