@@ -1,11 +1,8 @@
 # source is https://leetcode.com/problems/car-fleet/
 
-from math import ceil
-
-class Solution:
-  # not finished
+class SolutionUsingStack:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        ls = [(pos, speed[idx], ceil((target - pos) / speed[idx])) for idx, pos in enumerate(position)]
+        ls = [(pos, speed[idx], (target - pos) / speed[idx]) for idx, pos in enumerate(position)]
         ls.sort()
         stack = []
         result = len(speed)
@@ -15,6 +12,10 @@ class Solution:
             while stack and stack[-1][2] <= next_time:
                 result -= 1
                 stack.pop()
-            stack.append(next_time)
+            stack.append(next_data)
         return result
 
+
+class Solution:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        return SolutionUsingStack().carFleet(target, position, speed)
