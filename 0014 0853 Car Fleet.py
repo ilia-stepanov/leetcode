@@ -16,6 +16,20 @@ class SolutionUsingStack:
         return result
 
 
+class SolutionUsingReverseIteration:
+    def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
+        ls = [(pos, speed[idx], (target - pos) / speed[idx]) for idx, pos in enumerate(position)]
+        ls.sort(reverse=True)
+        result = 1
+        cur_time = ls[0][2]
+        for prev_idx in range(1, len(ls)):
+            prev_time = ls[prev_idx][2]
+            if prev_time > cur_time:
+                result += 1
+                cur_time = prev_time
+        return result
+
+
 class Solution:
     def carFleet(self, target: int, position: List[int], speed: List[int]) -> int:
-        return SolutionUsingStack().carFleet(target, position, speed)
+        return SolutionUsingReverseIteration().carFleet(target, position, speed)
