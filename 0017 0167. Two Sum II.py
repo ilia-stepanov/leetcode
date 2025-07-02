@@ -55,25 +55,20 @@ class SolutionUsingTwoPointes:
 
 class SolutionUsingBinarySearch:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        def bs(left, right, arr, target):
-            if left >= right:
-                return -1
-            mid = left + (right - left) // 2
-            print(left, right, mid)
-            if arr[mid] > target:
-                return bs(left, mid - 1, arr, target)
-            elif arr[mid] < target:
-                return bs(mid + 1, right, arr, target)
-            else:
-                return mid
-
-
-        for left_idx, left_value in enumerate(numbers):
-            right_value = target - left_value
-            right_idx = bs(left_idx+1, len(numbers)-1, numbers, target)
-            if right_idx != -1:
-                return [left_idx+1, right_idx+1]
-        return [1, 2]
+        for index, left_val in enumerate(numbers):
+            l, r = index + 1, len(numbers) - 1
+            right_val = target - left_val
+            while l <= r:
+                mid = l + (r - l) // 2
+                mid_val = numbers[mid]
+                print(l, mid, r)
+                if mid_val == right_val:
+                    return [index+1, mid+1, ]
+                elif mid_val < right_val:
+                    l = mid + 1
+                elif mid_val > right_val:
+                    r = mid - 1
+        return [1,2]
 
 
 class Solution:
