@@ -22,6 +22,31 @@ class SolutionUsingBruteForce:
         return result
 
 
+class SolutionUsingHashMap:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        hashmap = defaultdict(int)
+        result = []
+        for num in nums:
+            hashmap[num] += 1
+        
+        for left_idx, left_value in enumerate(nums):
+            hashmap[left_value] -= 1
+            if left_idx > 0 and nums[left_idx-1] == left_value:
+                continue
+            for mid_idx in range(left_idx+1, len(nums)-1):
+                hashmap[nums[mid_idx]] -= 1
+                if mid_idx > left_idx + 1 and nums[mid_idx] == nums[mid_idx-1]:
+                    continue
+                target = -(nums[left_idx] + nums[mid_idx])
+                if hashmap[target] > 0:
+                    result.append([nums[left_idx], nums[mid_idx], target])
+            for idx in range(left_idx+1, mid_idx+1):
+                hashmap[nums[idx]] += 1
+
+        return result
+
+
 class SolutionUsingTwoPointers:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
         nums.sort()
@@ -35,7 +60,6 @@ class SolutionUsingTwoPointers:
             if left_idx > 0 and nums[left_idx] == nums[left_idx - 1]:
                 continue
             while middle_idx < right_idx:
-
                 cur_sum = nums[middle_idx] + nums[right_idx]
                 if cur_sum > target:
                     right_idx -= 1
@@ -55,4 +79,4 @@ class SolutionUsingTwoPointers:
 
 class Solution:
     def threeSum(self, nums: List[int]) -> List[List[int]]:
-        return SolutionUsingTwoPointers().threeSum(nums)
+        return SolutionUsingHashMap().threeSum(nums)
