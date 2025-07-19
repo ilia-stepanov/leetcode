@@ -1,0 +1,45 @@
+       
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        local_max1 = None
+        local_max2 = None
+        local_min = None
+        result = 0
+        for cur_idx, cur_height in enumerate(height):
+            if cur_idx == 0:
+                continue
+            if not local_max1 and height[cur_idx] < height[cur_idx-1]:
+                local_max1 = (height[cur_idx-1], cur_idx-1)
+                local_min = (cur_height, cur_idx)
+                continue
+            if local_max1 and height[cur_idx] > height[cur_idx-1]:
+                local_max2 = (cur_height, cur_idx)
+            if local_min:
+                local_min = min(local_min, (cur_height, cur_idx))
+
+            if local_max2 and local_min[1] < local_max2[1]:
+                height_to_compare = min(local_max1, local_max2)[0]
+                for idx in range(local_max1[1]+1, local_max2[1]):
+                    if height_to_compare > height[idx]:
+                        result += height_to_compare - height[idx]
+                        height[idx] = height_to_compare
+                if local_max1[0] <= local_max2[0]:
+                    local_max1 = None
+                    local_max2 = None
+                    local_min = None
+        return result
+
+
+
+
+
+
+            
+
+
+        
+
+            
+            
+
+
