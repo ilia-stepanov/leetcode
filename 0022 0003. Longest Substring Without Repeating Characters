@@ -1,0 +1,41 @@
+class SolutionUsingDict:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        hashmap = defaultdict(int)
+        max_length = 0
+        start_idx = 0
+        char_idx = 0
+        char = ' '
+        while char_idx < len(s):
+            char = s[char_idx]
+            if char in hashmap and hashmap[char] >= start_idx:
+                max_length = max(max_length, char_idx - start_idx)
+                start_idx = hashmap[char] + 1
+            hashmap[char] = char_idx
+            char_idx += 1
+        max_length = max(max_length, char_idx - start_idx)
+        return max_length
+
+
+
+class SolutionUsingSet:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        hashset = set()
+        max_length = 0
+        start_index = 0
+        for char in s:
+            if char not in hashset:
+                hashset.add(char)
+                continue
+            max_length = max(max_length, len(hashset))
+            while s[start_index] in s and s[start_index] != char:
+                hashset.remove(s[start_index])
+                start_index += 1
+            start_index += 1
+        max_length = max(max_length, len(hashset))
+        return max_length
+            
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        return SolutionUsingSet().lengthOfLongestSubstring(s)
