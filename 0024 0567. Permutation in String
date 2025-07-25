@@ -1,0 +1,64 @@
+from collections import defaultdict
+
+
+class SolutionUsingHashMap:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2):
+            return False
+        s1_hashmap = defaultdict(int)
+        s2_hashmap = defaultdict(int)
+
+        for idx, char_s1 in enumerate(s1):
+            s1_hashmap[char_s1] += 1
+            char_s2 = s2[idx]
+            s2_hashmap[char_s2] += 1
+            if char_s2 not in s1_hashmap:
+                s1_hashmap[char_s2] = 0
+        
+        idx = 0
+        while idx < len(s2) - len(s1):
+            if s1_hashmap == s2_hashmap:
+                return True
+            s2_hashmap[s2[idx]] -= 1
+            new_char_s2 = s2[idx + len(s1)]
+            if new_char_s2 not in s1_hashmap:
+                s1_hashmap[new_char_s2] = 0
+            s2_hashmap[new_char_s2] += 1
+            idx += 1
+        if s1_hashmap == s2_hashmap:
+            return True
+        return False
+
+
+
+class SolutionUsingConstantList:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2):
+            return False
+
+        ls1 = [0] * 26
+        ls2 = [0] * 26
+        ascii_shift = ord('a')
+        for idx, char_s1 in enumerate(s1):
+            char_s2 = s2[idx]
+
+            ls1[ord(char_s1) - ascii_shift] += 1
+            ls2[ord(char_s2) - ascii_shift] += 1
+        
+        idx = 0
+        while idx < len(s2) - len(s1):
+            if ls1 == ls2:
+                return True
+            
+            ls2[ord(s2[idx]) - ascii_shift] -= 1
+            ls2[ord(s2[idx+len(s1)]) - ascii_shift] += 1
+
+            idx += 1
+
+        if ls1 == ls2:
+            return True
+        return False
+
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        return SolutionUsingConstantList().checkInclusion(s1, s2)
